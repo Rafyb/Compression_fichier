@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1588697128 source:c:\users\jdealmeida\documents\c\compression_fichier\fourrier\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
