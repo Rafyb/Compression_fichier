@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "p_generation_fichier.h"
 
 unsigned int int_to_int(unsigned int k) {
@@ -15,10 +16,43 @@ void generer_fichier(int Nb_Bloc){
     if(Mon_Fichier == NULL){
         printf("Erreur lors de l'ouverture du fichier\n");
     }
-    for(int i=1; i<=TAILLE_BLOC; i++){
-        Mon_Bloc[i]=int_to_int(rand() % 255);
+    for(int i=0; i<TAILLE_BLOC; i++){
+        //((rand()%(upper-lower+1))+lower)
+        //unsigned int bval=((rand()%(122-97+1))+97);
+        unsigned int bval=((rand()%(127-1+1))+1);
+        //printf("Valeur aléatoire : %d | Caractère : %c | Octet : %d\n", bval,(char)int_to_int(bval),int_to_int(bval));
+        Mon_Bloc[i]=bval;
     }
-    for(int i=1; i<=Nb_Bloc;i++){
+    printf("Valeur de Mon_Bloc[1]: %d\n", Mon_Bloc[0]);
+    for(int i=0; i<Nb_Bloc;i++){
        fwrite(Mon_Bloc, sizeof(unsigned char), TAILLE_BLOC, Mon_Fichier);
     }
+}
+
+void lire_fichier(char* Nom_Fichier, unsigned int* Mon_Tableau){
+    FILE* Mon_Fichier;
+    int index=0;
+    Mon_Fichier = fopen(Nom_Fichier, "r");
+    if (Mon_Fichier != NULL)
+    {
+        char bit;
+        do
+        {
+            bit = fgetc(Mon_Fichier);
+            Mon_Tableau[index++]=(unsigned char)bit;
+            //printf("Char : %c\n",Mon_Tableau[index-1]);
+        } while (bit != EOF);
+        fclose(Mon_Fichier);
+    }
+    else
+    {
+        printf("Impossible d'ouvrir le fichier %s\n",Nom_Fichier);
+    }
+}
+
+void afficher_tableau(unsigned int* Mon_Tableau){
+    for(int i=0;i<TAILLE_BLOC;i++){
+        printf("[%d|%c] ",Mon_Tableau[i],Mon_Tableau[i]);
+    }
+    printf("\n");
 }
