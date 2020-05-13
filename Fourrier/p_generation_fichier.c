@@ -72,3 +72,29 @@ void afficher_tableau(unsigned char* Mon_Tableau){
     }
     printf("\n");
 }
+
+void ecrire_base(int** Mes_vecteurs){
+    FILE* Mon_Fichier;
+    Mon_Fichier = fopen("vecteurs.bloc", "w");
+    if(Mon_Fichier == NULL){
+        printf("Erreur lors de l'ouverture du fichier\n");
+    }
+    else{
+        for(int i=0; i<256;i++){
+                for(int j=0;j<256;j++){
+                    //fwrite((Mes_vecteurs[i][j]), sizeof(int), 1, Mon_Fichier);
+                    fprintf(Mon_Fichier, "%d",Mes_vecteurs[i][j]);
+                    if(j<256-1){
+                        fprintf(Mon_Fichier, " ");
+                    }
+                    //fwrite(&delimiter, sizeof(char), 1, Mon_Fichier);
+                }
+                //fwrite(&saut, sizeof(char), 1, Mon_Fichier);
+                if(i<256-1){
+                    fprintf(Mon_Fichier, "\n");
+                }
+        }
+        fclose(Mon_Fichier);
+    }
+}
+

@@ -12,4 +12,6 @@ void generer_fichier(int Nb_Bloc);
 void lire_fichier(char* Nom_Fichier, unsigned char* Mon_Tableau);
 //Fonction permettant d'afficher un tableau d'octets
 void afficher_tableau(unsigned char* Mon_Tableau);
+
+void ecrire_base(int** Mes_vecteurs);
 #endif // P_GENERATION_FICHIER_H_INCLUDED
