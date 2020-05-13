@@ -19,29 +19,40 @@ void generer_fichier(int Nb_Bloc){
     for(int i=0; i<TAILLE_BLOC; i++){
         //((rand()%(upper-lower+1))+lower)
         //unsigned int bval=((rand()%(122-97+1))+97);
-        unsigned int bval=((rand()%(127-1+1))+1);
+        unsigned char bval=((rand()%(127-1+1))+1);
         //printf("Valeur aléatoire : %d | Caractère : %c | Octet : %d\n", bval,(char)int_to_int(bval),int_to_int(bval));
         Mon_Bloc[i]=bval;
     }
-    printf("Valeur de Mon_Bloc[1]: %d\n", Mon_Bloc[0]);
+    //printf("Valeur de Mon_Bloc[1]: %d\n", Mon_Bloc[0]);
     for(int i=0; i<Nb_Bloc;i++){
        fwrite(Mon_Bloc, sizeof(unsigned char), TAILLE_BLOC, Mon_Fichier);
     }
+    fclose(Mon_Fichier);
 }
 
-void lire_fichier(char* Nom_Fichier, unsigned int* Mon_Tableau){
+void lire_fichier(char* Nom_Fichier, unsigned char* Mon_Tableau){
     FILE* Mon_Fichier;
-    int index=0;
-    Mon_Fichier = fopen(Nom_Fichier, "r");
+    int index;
+    size_t mon_nb_lus;
+    Mon_Fichier = fopen(Nom_Fichier, "rb");
     if (Mon_Fichier != NULL)
     {
-        char bit;
-        do
-        {
-            bit = fgetc(Mon_Fichier);
-            Mon_Tableau[index++]=(unsigned char)bit;
+        unsigned char bit;
+        mon_nb_lus = fread(&bit, sizeof(unsigned char), 1, Mon_Fichier);
+        //printf("nb lus : %d\n", mon_nb_lus);
+        while(mon_nb_lus != 0){
+            //printf(" un nouveau bloc\n");
+            Mon_Tableau[0]=bit;
+            index = 1;
             //printf("Char : %c\n",Mon_Tableau[index-1]);
-        } while (bit != EOF);
+            while(index < TAILLE_BLOC){
+                mon_nb_lus = fread(&bit, sizeof(unsigned char), 1, Mon_Fichier);
+                Mon_Tableau[index]=bit;
+                index++;
+                //printf("Char : %c\n",Mon_Tableau[index-1]);
+            }
+            mon_nb_lus = fread(&bit, sizeof(unsigned char), 1, Mon_Fichier);
+        }
         fclose(Mon_Fichier);
     }
     else
@@ -50,9 +61,14 @@ void lire_fichier(char* Nom_Fichier, unsigned int* Mon_Tableau){
     }
 }
 
-void afficher_tableau(unsigned int* Mon_Tableau){
+void afficher_tableau(unsigned char* Mon_Tableau){
     for(int i=0;i<TAILLE_BLOC;i++){
-        printf("[%d|%c] ",Mon_Tableau[i],Mon_Tableau[i]);
+        if((int)Mon_Tableau[i]<=122 && (int)Mon_Tableau[i]>=30){
+            printf("[%c] ",Mon_Tableau[i]);
+        }
+        else{
+            printf("[%d] ",Mon_Tableau[i]);
+        }
     }
     printf("\n");
 }
