@@ -3,10 +3,18 @@
 
 int** generer_base_orthonormee();
 
-unsigned char produit_scalaire(char ma_valeur);
+int produit_scalaire(unsigned char* Bloc, int* Mon_Vecteur);
 
-unsigned char* calcul_produit_scalaire(char* Mon_Tableau);
+void Transforme(unsigned char* Bloc, char* Transformee, int** Mes_Vecteurs);
 
 void afficher_base_orthonormee(int** Mes_Vecteurs, int bloc);
+
+void calcul_produit_inverse(char* Transformee, int** Mes_Vecteurs, unsigned char* Bloc);
+
+void test_valeurs_transformee(unsigned char* origine,unsigned char* destination);
+
+void afficher_transformee(char* Ma_Transformee);
+
+void afficher_vecteur(unsigned char* Mon_Vecteur);
 
 #endif // P_TRAITEMENT_H_INCLUDED

@@ -9,8 +9,6 @@ unsigned int int_to_int(unsigned int k) {
 
 void generer_fichier(int Nb_Bloc){
     FILE* Mon_Fichier;
-    time_t t;
-    srand((unsigned) time(&t));
     Mon_Bloc = (unsigned char*)malloc(sizeof(char)* TAILLE_BLOC);
     Mon_Fichier = fopen("fichier_binaire.bloc", "wb");
     if(Mon_Fichier == NULL){
@@ -19,7 +17,8 @@ void generer_fichier(int Nb_Bloc){
     for(int i=0; i<TAILLE_BLOC; i++){
         //((rand()%(upper-lower+1))+lower)
         //unsigned int bval=((rand()%(122-97+1))+97);
-        unsigned char bval=((rand()%(127-1+1))+1);
+        //unsigned char bval=((rand()%(127-1+1))+1);
+        unsigned char bval=((rand()%(127-50+1))+50);
         //printf("Valeur aléatoire : %d | Caractère : %c | Octet : %d\n", bval,(char)int_to_int(bval),int_to_int(bval));
         Mon_Bloc[i]=bval;
     }
@@ -63,7 +62,7 @@ void lire_fichier(char* Nom_Fichier, unsigned char* Mon_Tableau){
 
 void afficher_tableau(unsigned char* Mon_Tableau){
     for(int i=0;i<TAILLE_BLOC;i++){
-        if((int)Mon_Tableau[i]<=122 && (int)Mon_Tableau[i]>=30){
+        if((int)Mon_Tableau[i]<=122 && (int)Mon_Tableau[i]>=32){
             printf("[%c] ",Mon_Tableau[i]);
         }
         else{

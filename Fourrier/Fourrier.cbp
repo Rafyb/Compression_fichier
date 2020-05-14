@@ -38,6 +38,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="p_generation_fichier.h" />
+		<Unit filename="p_traitement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="p_traitement.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

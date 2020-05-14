@@ -1,22 +1,24 @@
 # depslib dependency file v1.0
-1589383561 source:c:\users\jdealmeida\documents\c\compression_fichier\fourrier\main.c
+1589454481 source:c:\users\jdealmeida\documents\c\compression_fichier\fourrier\main.c
 	<stdio.h>
 	<stdlib.h>
 	"p_generation_fichier.h"
 	"p_traitement.h"
+	<time.h>
 
 1589380921 c:\users\jdealmeida\documents\c\compression_fichier\fourrier\p_generation_fichier.h
 
-1589380752 source:c:\users\jdealmeida\documents\c\compression_fichier\fourrier\p_generation_fichier.c
+1589452769 source:c:\users\jdealmeida\documents\c\compression_fichier\fourrier\p_generation_fichier.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	"p_generation_fichier.h"
 
-1589380847 c:\users\jdealmeida\documents\c\compression_fichier\fourrier\p_traitement.h
+1589452443 c:\users\jdealmeida\documents\c\compression_fichier\fourrier\p_traitement.h
 
-1589380841 source:c:\users\jdealmeida\documents\c\compression_fichier\fourrier\p_traitement.c
+1589453789 source:c:\users\jdealmeida\documents\c\compression_fichier\fourrier\p_traitement.c
 	<stdio.h>
 	<stdlib.h>
 	"p_traitement.h"
+	"p_generation_fichier.h"
 
