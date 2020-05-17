@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "p_traitement.h"
-#include "p_generation_fichier.h"
+#include "p_lecture_ecriture_fichier.h"
+#include "p_bloc.h"
 
 int** dedoubler(int** origin, int l){
     int** nouveau=(int**)malloc(sizeof(int*)*(l*2));
@@ -37,28 +38,8 @@ int** generer_base_orthonormee(){
     return Mon_Tableau;
 }
 
-void afficher_base_orthonormee(int** Mes_Vecteurs, int bloc){
-    for (int i=0;i<TAILLE_BLOC;i++){
-        printf("[%d] ",Mes_Vecteurs[bloc][i]);
-    }
-}
 
-void afficher_transformee(char* Ma_Transformee){
-    printf("[%d] ",(unsigned char)Ma_Transformee[0]);
-    for (int i=1;i<TAILLE_BLOC;i++){
-        printf("[%d] ",Ma_Transformee[i]);
-    }
-    printf("\n");
-}
-
-void afficher_vecteur(unsigned char* Mon_Vecteur){
-    for (int i=0;i<TAILLE_BLOC;i++){
-        printf("[%d] ",Mon_Vecteur[i]);
-    }
-    printf("\n");
-}
-
-int produit_scalaire(unsigned char* Bloc, int* Mon_Vecteur){
+int produit_scalaire(BLOC Bloc, int* Mon_Vecteur){
     int res = 0;
     for(int i=0;i<TAILLE_BLOC;i++){
         res+= (int)Bloc[i] * Mon_Vecteur[i];
@@ -66,7 +47,7 @@ int produit_scalaire(unsigned char* Bloc, int* Mon_Vecteur){
     return res;
 }
 
-void Transforme(unsigned char* Bloc, char* Transformee, int** Mes_Vecteurs){
+void Transforme(BLOC Bloc, char* Transformee, int** Mes_Vecteurs){
     Transformee[0]=(unsigned char)(produit_scalaire(Bloc,Mes_Vecteurs[0])/256);
     for(int i=1;i<TAILLE_BLOC;i++){
         Transformee[i]=(char)(produit_scalaire(Bloc,Mes_Vecteurs[i])/256);
@@ -81,7 +62,7 @@ B'[0] = somme_{i = 0}^{N-1} (T[i] * Base[i][0])
 B' - B est proche du vecteur nul.
 */
 
-void calcul_produit_inverse(char* Transformee, int** Mes_Vecteurs,unsigned char* Bloc){
+void calcul_produit_inverse(char* Transformee, int** Mes_Vecteurs,BLOC Bloc){
     int somme;
     for(int i=0;i<TAILLE_BLOC;i++){
         somme = (int)((unsigned char)Transformee[0]);
@@ -92,8 +73,8 @@ void calcul_produit_inverse(char* Transformee, int** Mes_Vecteurs,unsigned char*
     }
 }
 
-void test_valeurs_transformee(unsigned char* origine, unsigned char* destination){
-    int res[TAILLE_BLOC];
+void test_valeurs_transformee(BLOC origine, BLOC destination){
+    char res[TAILLE_BLOC];
     for(int i=0;i<TAILLE_BLOC;i++){
         res[i]=destination[i]-origine[i];
     }

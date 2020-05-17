@@ -1,35 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "p_generation_fichier.h"
+#include "p_lecture_ecriture_fichier.h"
+#include "p_bloc.h"
 
-unsigned int int_to_int(unsigned int k) {
-    return (k == 0 || k == 1 ? k : ((k % 2) + 10 * int_to_int(k / 2)));
-}
-
-void generer_fichier(int Nb_Bloc){
+void ecrire_fichier(BLOC Mon_Bloc){
+    // Ouverture
     FILE* Mon_Fichier;
-    Mon_Bloc = (unsigned char*)malloc(sizeof(char)* TAILLE_BLOC);
     Mon_Fichier = fopen("fichier_binaire.bloc", "wb");
     if(Mon_Fichier == NULL){
         printf("Erreur lors de l'ouverture du fichier\n");
     }
-    for(int i=0; i<TAILLE_BLOC; i++){
-        //((rand()%(upper-lower+1))+lower)
-        //unsigned int bval=((rand()%(122-97+1))+97);
-        //unsigned char bval=((rand()%(127-1+1))+1);
-        unsigned char bval=((rand()%(127-50+1))+50);
-        //printf("Valeur aléatoire : %d | Caractère : %c | Octet : %d\n", bval,(char)int_to_int(bval),int_to_int(bval));
-        Mon_Bloc[i]=bval;
-    }
-    //printf("Valeur de Mon_Bloc[1]: %d\n", Mon_Bloc[0]);
-    for(int i=0; i<Nb_Bloc;i++){
-       fwrite(Mon_Bloc, sizeof(unsigned char), TAILLE_BLOC, Mon_Fichier);
-    }
+    // Ecriture
+    fwrite(Mon_Bloc, sizeof(unsigned char), TAILLE_BLOC, Mon_Fichier);
+
+
+    // Fermeture
     fclose(Mon_Fichier);
 }
 
-void lire_fichier(char* Nom_Fichier, unsigned char* Mon_Tableau){
+
+void lire_fichier(char* Nom_Fichier, BLOC Mon_Tableau){
     FILE* Mon_Fichier;
     int index;
     size_t mon_nb_lus;
@@ -38,17 +27,13 @@ void lire_fichier(char* Nom_Fichier, unsigned char* Mon_Tableau){
     {
         unsigned char bit;
         mon_nb_lus = fread(&bit, sizeof(unsigned char), 1, Mon_Fichier);
-        //printf("nb lus : %d\n", mon_nb_lus);
         while(mon_nb_lus != 0){
-            //printf(" un nouveau bloc\n");
             Mon_Tableau[0]=bit;
             index = 1;
-            //printf("Char : %c\n",Mon_Tableau[index-1]);
             while(index < TAILLE_BLOC){
                 mon_nb_lus = fread(&bit, sizeof(unsigned char), 1, Mon_Fichier);
                 Mon_Tableau[index]=bit;
                 index++;
-                //printf("Char : %c\n",Mon_Tableau[index-1]);
             }
             mon_nb_lus = fread(&bit, sizeof(unsigned char), 1, Mon_Fichier);
         }
@@ -58,18 +43,6 @@ void lire_fichier(char* Nom_Fichier, unsigned char* Mon_Tableau){
     {
         printf("Impossible d'ouvrir le fichier %s\n",Nom_Fichier);
     }
-}
-
-void afficher_tableau(unsigned char* Mon_Tableau){
-    for(int i=0;i<TAILLE_BLOC;i++){
-        if((int)Mon_Tableau[i]<=122 && (int)Mon_Tableau[i]>=32){
-            printf("[%c] ",Mon_Tableau[i]);
-        }
-        else{
-            printf("[%d] ",Mon_Tableau[i]);
-        }
-    }
-    printf("\n");
 }
 
 void ecrire_base(int** Mes_vecteurs){
@@ -95,5 +68,27 @@ void ecrire_base(int** Mes_vecteurs){
         }
         fclose(Mon_Fichier);
     }
+}
+
+
+void afficher_base_orthonormee(int** Mes_Vecteurs, int bloc){
+    for (int i=0;i<TAILLE_BLOC;i++){
+        printf("[%d] ",Mes_Vecteurs[bloc][i]);
+    }
+}
+
+void afficher_transformee(char* Ma_Transformee){
+    printf("[%d] ",(unsigned char)Ma_Transformee[0]);
+    for (int i=1;i<TAILLE_BLOC;i++){
+        printf("[%d] ",Ma_Transformee[i]);
+    }
+    printf("\n");
+}
+
+void afficher_valeurs(BLOC Mon_Bloc){
+    for (int i=0;i<TAILLE_BLOC;i++){
+        printf("[%d] ",Mon_Bloc[i]);
+    }
+    printf("\n");
 }
 

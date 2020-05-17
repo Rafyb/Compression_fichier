@@ -34,18 +34,18 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="p_generation_fichier.c">
+		<Unit filename="p_bloc.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="p_generation_fichier.h" />
+		<Unit filename="p_bloc.h" />
+		<Unit filename="p_lecture_ecriture.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="p_lecture_ecriture_fichier.h" />
 		<Unit filename="p_traitement.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="p_traitement.h" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

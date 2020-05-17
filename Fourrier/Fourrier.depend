@@ -22,3 +22,35 @@
 	"p_traitement.h"
 	"p_generation_fichier.h"
 
+1589747140 source:d:\6) dev\git\compression_fichier\fourrier\main.c
+	<stdio.h>
+	<stdlib.h>
+	"p_lecture_ecriture_fichier.h"
+	"p_traitement.h"
+	"p_bloc.h"
+	<time.h>
+
+1589747664 d:\6) dev\git\compression_fichier\fourrier\p_lecture_ecriture_fichier.h
+	"p_bloc.h"
+
+1589747667 d:\6) dev\git\compression_fichier\fourrier\p_traitement.h
+	"p_bloc.h"
+
+1589747566 source:d:\6) dev\git\compression_fichier\fourrier\p_traitement.c
+	<stdio.h>
+	<stdlib.h>
+	"p_traitement.h"
+	"p_lecture_ecriture_fichier.h"
+	"p_bloc.h"
+
+1589747627 source:d:\6) dev\git\compression_fichier\fourrier\p_lecture_ecriture.c
+	<stdio.h>
+	"p_lecture_ecriture_fichier.h"
+	"p_bloc.h"
+
+1589747160 d:\6) dev\git\compression_fichier\fourrier\p_bloc.h
+
+1589747173 source:d:\6) dev\git\compression_fichier\fourrier\p_bloc.c
+	"p_bloc.h"
+	<stdlib.h>
+

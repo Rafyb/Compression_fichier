@@ -1,32 +1,51 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "p_generation_fichier.h"
+#include "p_lecture_ecriture_fichier.h"
 #include "p_traitement.h"
+#include "p_bloc.h"
 #include <time.h>
 
 int main(){
-    //srand((unsigned) time(NULL));
     srand(0);
-    //Créatino du tableau d'octets
+    int Nb_Bloc = 1;
 
-    //unsigned int* Mon_Tableau = (unsigned int*)malloc(sizeof(char)* TAILLE_BLOC);
-    unsigned char Mon_Tableau[TAILLE_BLOC];
-    //generer_fichier() prend en paramètre le nombre de bloc que doit contenir le fichier de sortie
-    generer_fichier(1);
-    lire_fichier("fichier_binaire.bloc", &Mon_Tableau[0]);
-    afficher_vecteur(Mon_Tableau);
-    printf("\n");
+    // On initialise un ficgier avec N bloc
+    for(int i=0; i<Nb_Bloc;i++){
+        BLOC Mon_Bloc = (BLOC)malloc(sizeof(char)* TAILLE_BLOC);
+        initialiser_bloc(Mon_Bloc);
+        ecrire_fichier(Mon_Bloc);
+        free(Mon_Bloc);
+    }
+
+    // On lit ce fichier
+    BLOC Mon_Tableau = (BLOC)malloc(sizeof(char)* TAILLE_BLOC);
+    lire_fichier("fichier_binaire.bloc", Mon_Tableau);
+    printf("Bloc d'origine :\n");
+    afficher_valeurs(Mon_Tableau);
+
+    // On génére la famille de vecteur
     int** Mes_Vecteurs = generer_base_orthonormee();
+    // On la sauvegarde dans un fichier
     ecrire_base(Mes_Vecteurs);
     //afficher_base_orthonormee(Mes_Vecteurs,2);
+
+    // On effectue la transformée
     char Transformee[TAILLE_BLOC];
     Transforme(Mon_Tableau,&Transformee[0],Mes_Vecteurs);
+    printf("Resultat de la Transformée :\n");
     afficher_transformee(Transformee);
-    printf("\n\n");
-    unsigned char Dtransformee[TAILLE_BLOC];
+
+    // On effectue l'operation inverse
+    BLOC Dtransformee = (BLOC)malloc(sizeof(char)* TAILLE_BLOC);
     calcul_produit_inverse(Transformee,Mes_Vecteurs,Dtransformee);
-    afficher_vecteur(Dtransformee);
-    printf("\n\n");
+    printf("Bloc d'arrivée :\n");
+    afficher_valeurs(Dtransformee);
+
+    printf("Diférence entre origine et arrivée :\n");
     test_valeurs_transformee(Mon_Tableau, Dtransformee);
+
+    free(Mon_Tableau);
+    free(Dtransformee);
+
     return 0;
 }

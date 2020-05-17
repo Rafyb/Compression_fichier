@@ -1,0 +1,21 @@
+#ifndef P_GENERATION_FICHIER_H_INCLUDED
+#define P_GENERATION_FICHIER_H_INCLUDED
+#include "p_bloc.h"
+
+//Fonction permettant de générer un fichier de n nombre de bloc d'octets
+void ecrire_fichier(BLOC Mon_Bloc);
+
+void ecrire_base(int** Mes_vecteurs);
+
+//Fonction permettant de lire un fichier contenant n bloc d'octets
+void lire_fichier(char* Nom_Fichier, BLOC Mon_Tableau);
+
+
+void afficher_base_orthonormee(int** Mes_Vecteurs, int bloc);
+
+void afficher_transformee(char* Ma_Transformee);
+
+//Fonction permettant d'afficher un tableau d'octets
+void afficher_valeurs(BLOC Mon_Bloc);
+
+#endif // P_GENERATION_FICHIER_H_INCLUDED
