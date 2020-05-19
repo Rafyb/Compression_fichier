@@ -1,4 +1,4 @@
-# Compression fichier
+# Transformée de fourier
 
 GIT : https://github.com/Rafyb/Compression_fichier
 
