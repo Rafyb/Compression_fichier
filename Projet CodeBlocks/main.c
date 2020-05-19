@@ -6,6 +6,7 @@
 #include <time.h>
 
 int main(){
+    /*
     srand(0);
     int Nb_Bloc = 10;
     //int Nb_Bloc = argv[1];
@@ -22,10 +23,11 @@ int main(){
     }
 
     // On génére la famille de vecteur
+    */
     int** Mes_Vecteurs = generer_base_orthonormee();
     // On la sauvegarde dans un fichier
     ecrire_base(Mes_Vecteurs);
-
+    /*
     while (index < Nb_Bloc){
         // On lit ce fichier
         BLOC Mon_Tableau = (BLOC)malloc(sizeof(char)* TAILLE_BLOC);
@@ -54,6 +56,17 @@ int main(){
         free(Dtransformee);
         index++;
     }
-
+    */
+    int** Base=(int**)malloc(sizeof(int*) * 256);
+    for(int i=0;i<256;i++){
+        Base[i]=(int*)malloc(sizeof(int) * 256);
+    }
+    lire_fichier_base("vecteurs.bloc", Base);
+    for(int i=0;i<256;i++){
+        for(int j=0;j<256;j++){
+            printf("%d ",Base[i][j]);
+        }
+        printf("\n");
+    }
     return 0;
 }

@@ -18,4 +18,6 @@ void afficher_transformee(char* Ma_Transformee);
 //Fonction permettant d'afficher un tableau d'octets
 void afficher_valeurs(BLOC Mon_Bloc);
 
+void lire_fichier_base(char* Nom_Fichier, int** Mon_Tableau);
+
 #endif // P_GENERATION_FICHIER_H_INCLUDED
