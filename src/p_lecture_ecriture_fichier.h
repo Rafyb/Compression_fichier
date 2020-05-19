@@ -14,6 +14,8 @@ void lire_fichier(char *Nom_Fichier, BLOC Mon_Tableau, int idxBloc);
 
 void lire_Transformee(char *Nom_Fichier, char *Mon_Tableau, int idxBloc);
 
+void lire_fichier_base(char *Nom_Fichier, int **Mon_Tableau);
+
 void afficher_base_orthonormee(int **Mes_Vecteurs, int bloc);
 
 void afficher_transformee(char *Ma_Transformee);

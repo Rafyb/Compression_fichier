@@ -31,6 +31,30 @@ void ecrire_Transformee(char *Nom_Fichier, char *Mon_Bloc, char *mode) {
   fclose(Mon_Fichier);
 }
 
+void ecrire_base(int **Mes_vecteurs) {
+  FILE *Mon_Fichier;
+  Mon_Fichier = fopen("vecteurs.bloc", "w");
+  if (Mon_Fichier == NULL) {
+    printf("Erreur lors de l'ouverture du fichier\n");
+  } else {
+    for (int i = 0; i < 256; i++) {
+      for (int j = 0; j < 256; j++) {
+        // fwrite((Mes_vecteurs[i][j]), sizeof(int), 1, Mon_Fichier);
+        fprintf(Mon_Fichier, "%d", Mes_vecteurs[i][j]);
+        if (j < 256 - 1) {
+          fprintf(Mon_Fichier, " ");
+        }
+        // fwrite(&delimiter, sizeof(char), 1, Mon_Fichier);
+      }
+      // fwrite(&saut, sizeof(char), 1, Mon_Fichier);
+      if (i < 256 - 1) {
+        fprintf(Mon_Fichier, "\n");
+      }
+    }
+    fclose(Mon_Fichier);
+  }
+}
+
 void lire_fichier(char *Nom_Fichier, BLOC Mon_Tableau, int idxBloc) {
   FILE *Mon_Fichier;
   int index;
@@ -99,27 +123,25 @@ void lire_Transformee(char *Nom_Fichier, char *Mon_Tableau, int idxBloc) {
   }
 }
 
-void ecrire_base(int **Mes_vecteurs) {
+void lire_fichier_base(char *Nom_Fichier, int **Mon_Tableau) {
   FILE *Mon_Fichier;
-  Mon_Fichier = fopen("vecteurs.bloc", "w");
-  if (Mon_Fichier == NULL) {
-    printf("Erreur lors de l'ouverture du fichier\n");
-  } else {
+  size_t mon_nb_lu;
+  int mon_entier;
+  Mon_Fichier = fopen(Nom_Fichier, "r");
+  if (Mon_Fichier != NULL) {
     for (int i = 0; i < 256; i++) {
       for (int j = 0; j < 256; j++) {
-        // fwrite((Mes_vecteurs[i][j]), sizeof(int), 1, Mon_Fichier);
-        fprintf(Mon_Fichier, "%d", Mes_vecteurs[i][j]);
-        if (j < 256 - 1) {
-          fprintf(Mon_Fichier, " ");
+        mon_nb_lu = fscanf(Mon_Fichier, "%d ", &mon_entier);
+        if (mon_nb_lu != 1) {
+          printf("Erreur lecture fichier\n");
+          exit(1);
         }
-        // fwrite(&delimiter, sizeof(char), 1, Mon_Fichier);
-      }
-      // fwrite(&saut, sizeof(char), 1, Mon_Fichier);
-      if (i < 256 - 1) {
-        fprintf(Mon_Fichier, "\n");
+        Mon_Tableau[i][j] = mon_entier;
       }
     }
     fclose(Mon_Fichier);
+  } else {
+    printf("Impossible d'ouvrir le fichier %s\n", Nom_Fichier);
   }
 }
 

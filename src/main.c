@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+// CODE DE TEST
 int main(int argc, char *argv[]) {
   srand(0);
   if (argc < 2) {
@@ -30,6 +31,7 @@ int main(int argc, char *argv[]) {
   int **Mes_Vecteurs = generer_base_orthonormee();
   // On la sauvegarde dans un fichier
   ecrire_base(Mes_Vecteurs);
+  lire_fichier_base("vecteurs.bloc", Mes_Vecteurs);
 
   while (index < Nb_Bloc) {
     // On lit ce fichier
@@ -58,6 +60,9 @@ int main(int argc, char *argv[]) {
     free(Mon_Tableau);
     free(Dtransformee);
     index++;
+  }
+  for (int i = 0; i < 256; i++) {
+    free(Mes_Vecteurs[i]);
   }
   free(Mes_Vecteurs);
 
