@@ -4,43 +4,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv) {
-  if (argc < 3) {
-    printf("Erreur manque d'argument\n");
+int main(int argc, char *argv[]) {
+  if (argc < 4) {
+    printf("Erreur arguments incorrect\n");
     exit(-1);
   }
-
-  BLOC Mon_Bloc = (BLOC)malloc(sizeof(char) * TAILLE_BLOC);
-
-  // On lit ce fichier
-  BLOC Mon_Tableau = (BLOC)malloc(sizeof(char) * TAILLE_BLOC);
-  lire_fichier("fichier_binaire.bloc", Mon_Tableau);
-  printf("Bloc d'origine :\n");
-  afficher_valeurs(Mon_Tableau);
-
   // On génére la famille de vecteur
   int **Mes_Vecteurs = generer_base_orthonormee();
-  // On la sauvegarde dans un fichier
-  ecrire_base(Mes_Vecteurs);
-  // afficher_base_orthonormee(Mes_Vecteurs,2);
 
-  // On effectue la transformée
-  char Transformee[TAILLE_BLOC];
-  Transforme(Mon_Tableau, &Transformee[0], Mes_Vecteurs);
-  printf("Resultat de la Transformée :\n");
-  afficher_transformee(Transformee);
+  int Nb_Bloc = atoi(argv[1]);
+  int index = 0;
+  while (index < Nb_Bloc) {
+    // On lit ce fichier
+    BLOC Mon_Bloc = (BLOC)malloc(sizeof(char) * TAILLE_BLOC);
+    lire_fichier(argv[2], Mon_Bloc, index);
+    // afficher_valeurs(Mon_Bloc);
 
-  // On effectue l'operation inverse
-  BLOC Dtransformee = (BLOC)malloc(sizeof(char) * TAILLE_BLOC);
-  calcul_produit_inverse(Transformee, Mes_Vecteurs, Dtransformee);
-  printf("Bloc d'arrivée :\n");
-  afficher_valeurs(Dtransformee);
+    // On effectue la transformée
+    char *Transformee = (char *)malloc(sizeof(char) * TAILLE_BLOC);
+    Transforme(Mon_Bloc, Transformee, Mes_Vecteurs);
+    // afficher_transformee(Transformee);
+    if (index == 0)
+      ecrire_Transformee(argv[3], Transformee, "wb");
+    ecrire_Transformee(argv[3], Transformee, "ab");
 
-  printf("Diférence entre origine et arrivée :\n");
-  test_valeurs_transformee(Mon_Tableau, Dtransformee);
-
-  free(Mon_Tableau);
-  free(Dtransformee);
+    free(Mon_Bloc);
+    free(Transformee);
+    index++;
+  }
 
   return 0;
 }
