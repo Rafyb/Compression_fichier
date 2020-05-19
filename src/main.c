@@ -7,6 +7,10 @@
 
 int main(int argc, char *argv[]) {
   srand(0);
+  if (argc < 2) {
+    printf("Veuillez entre un nombre de bloc à générer\n");
+    exit(-1);
+  }
   int Nb_Bloc = atoi(argv[1]);
   // int Nb_Bloc = argv[1];
   int index = 0;
