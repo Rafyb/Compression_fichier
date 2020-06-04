@@ -1,6 +1,6 @@
 # Transformée de fourier
 
-GIT : https://github.com/Rafyb/Compression_fichier
+GIT : https://github.com/Rafyb/Transformation_de_Fourier
 
 ## Equipe
 
